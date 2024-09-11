@@ -14,7 +14,7 @@
 
     // Validação para a adição da imagem ao banco de dados
     if($_FILES["imagem"]["name"] == ""){
-
+        // error ao tentar editar cai nesse if
         echo"<script> alert('Imagem nao existe'); document.location.href = 'salvar.php';</script>";
        
         }else{

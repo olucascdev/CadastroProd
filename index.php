@@ -21,16 +21,24 @@
             <input type="number" id="codigo" name="codigo" readonly><br>
             <!-- NOME DO PRODUTO -->
             <label for="nome">Nome do Produto: </label><br>
-            <input type="text" id="nome" name="nome" required><br>
+            <input type="text" id="nome" name="nome" required value="<?php 
+                        echo filter_input(INPUT_GET, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
+                        ?>"><br>
             <!-- VALOR -->
             <label for="valor">Valor: </label><br>
-            <input type="text" id="valor" name="valor" required><br>
+            <input type="text" id="valor" name="valor" required value="<?php 
+                        echo filter_input(INPUT_GET, "valor", FILTER_SANITIZE_SPECIAL_CHARS);
+                        ?>"> <br>
             <!-- QUANTIDADE -->
             <label for="quantidade">Quantidade: </label><br>
-            <input type="number" id="qtd" name="qtd" required><br>
+            <input type="number" id="qtd" name="qtd" required value="<?php 
+                        echo filter_input(INPUT_GET, "qtd", FILTER_SANITIZE_SPECIAL_CHARS);
+                        ?>"> <br>
             <!-- IMAGEM -->
             <label for="imagem">Imagem do Produto: </label><br>
-            <input type="file" id="imagem" name="imagem"><br>
+            <input type="file" id="imagem" name="imagem" value="<?php 
+                        echo filter_input(INPUT_GET, "imagem", FILTER_SANITIZE_SPECIAL_CHARS);
+                        ?>"> <br>
 
             <!-- NOVO -->
             <a href="index.php">
@@ -67,7 +75,33 @@
                             
                         </tr>
                     </thead>
+                    <tbody>
+                    <?php 
+                        $i = 1;
+                        $rows = mysqli_query($conn, "SELECT * FROM produto ORDER BY prod_id asc");
+                        ?>
+                        <?php foreach($rows as $row) : ?>
+                        <tr>
+                           <td><?php echo $i++; ?></td>
+                           <td><?php echo $row["prod_nome"]; ?></td> <!-- Mudar o nome para name caso der erro-->
+                           <td><?php echo $row["prod_valor"]; ?></td>
+                           <td><?php echo $row["prod_qtd"]; ?></td>
+                           <td><img src="img/<?php echo $row['prod_imagem']; ?>"  width="64px" title="<?php echo $row['prod_imagem']; ?>"> </td>     
+                           <td>
+                                    <!-- Botão de Editar -->
+                                    <a href="Controller/salvar.php?php echo $row['prod_id']; ?>"><img src="styles/imagens/editar.png" alt="" width="32px">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="Controller/excluir.php?codigo=<?php echo $row['prod_id']; ?>"><img src="styles/imagens/excluir.png" alt="" width="32px">
+                            </a>
+                            </td>
 
+                        </tr>
+                        <?php endforeach;?>                              
+
+                           
+                    </tbody>
                 </table>
             </div>
         </div>
