@@ -1,6 +1,7 @@
 <?php 
     include_once 'Controller/conexao.php';
 
+    
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +19,9 @@
             <h1>Cadastre seu Produto</h1>
             <!-- CODIGO -->
             <label for="codigo">Código: </label><br>
-            <input type="number" id="codigo" name="codigo" readonly><br>
+            <input type="number" id="codigo" name="codigo" readonly value="<?php 
+                        echo filter_input(INPUT_GET, "codigo", FILTER_SANITIZE_SPECIAL_CHARS);
+                        ?>"><br>
             <!-- NOME DO PRODUTO -->
             <label for="nome">Nome do Produto: </label><br>
             <input type="text" id="nome" name="nome" required value="<?php 
@@ -34,6 +37,7 @@
             <input type="number" id="qtd" name="qtd" required value="<?php 
                         echo filter_input(INPUT_GET, "qtd", FILTER_SANITIZE_SPECIAL_CHARS);
                         ?>"> <br>
+                        
             <!-- IMAGEM -->
             <label for="imagem">Imagem do Produto: </label><br>
             <input type="file" id="imagem" name="imagem" value="<?php 
@@ -89,7 +93,9 @@
                            <td><img src="img/<?php echo $row['prod_imagem']; ?>"  width="64px" title="<?php echo $row['prod_imagem']; ?>"> </td>     
                            <td>
                                     <!-- Botão de Editar -->
-                                    <a href="Controller/salvar.php?php echo $row['prod_id']; ?>"><img src="styles/imagens/editar.png" alt="" width="32px">
+                                    <a href="?
+                                    &codigo=<?php echo $row['prod_id']; ?>&nome=<?php echo $row['prod_nome']; ?>&valor=<?php echo $row['prod_valor']; ?>&qtd=<?php echo $row['prod_qtd']; ?>">
+                                    <img src="styles/imagens/editar.png" alt="Editar" width="32px">
                                 </a>
                             </td>
                             <td>
