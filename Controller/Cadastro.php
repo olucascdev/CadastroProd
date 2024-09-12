@@ -18,8 +18,8 @@
             echo "
                 <script>
                     alert('User cadastrado com sucesso, parabens pelo basico');
-                    window.location.href='../cadastroUser.php';
-                </script>";
+                    window.location.href='../home.php';
+                </script>"; 
             
         } else {
 
